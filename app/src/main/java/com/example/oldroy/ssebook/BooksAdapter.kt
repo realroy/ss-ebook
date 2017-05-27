@@ -27,7 +27,6 @@ class BooksAdapter(private var context: Context, private var books: List<Book>) 
         viewHolder?.text_pubYear?.text = book.pubYear.toString()
         Glide.with(this.context)
                 .load(book.img_url)
-                .thumbnail(0.5f)
                 .into(viewHolder?.image_book)
     }
 

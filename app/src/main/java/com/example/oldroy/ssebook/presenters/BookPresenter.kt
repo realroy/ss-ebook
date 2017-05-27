@@ -6,12 +6,20 @@ import com.example.oldroy.ssebook.models.BookRepo
 import com.example.oldroy.ssebook.models.Filter
 import java.util.*
 
-class BookPresenter(val view: BookContact.BookView) : BookContact.BookPresenter, Observer {
+class BookPresenter : BookContact.BookPresenter, Observer {
 
-    private val repo: BookRepo = BookRepo()
+    private val repo: BookRepo
+    private val view: BookContact.BookView
+
+    constructor(view: BookContact.BookView) {
+        this.view = view
+        this.repo = BookRepo()
+        repo.addObserver(this)
+    }
+
+
 
     override fun getInformation(): MutableCollection<Book> {
-        repo.fetchAllBooks()
         return repo.getAllBook()
     }
 
