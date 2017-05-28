@@ -10,7 +10,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BookRepo : Observable {
@@ -49,29 +48,16 @@ class BookRepo : Observable {
         return bookList.values
     }
 
-    fun getBookByFilter(filters: ArrayList<Filter>): MutableCollection<Book> {
-        val result: ArrayList<Book> = ArrayList<Book>()
-        for (filter in filters) {
-            when (filter.attribute) {
-                BookAttr.TITLE.toString() -> {
-                    getAllBook()
-                            .filter { (title) -> title == filter.value }
-                            .forEach { book -> result.add(book) }
-                }
-                BookAttr.PRICE.toString() -> {
-                    getAllBook()
-                            .filter { book -> book.price == filter.value.toDouble() }
-                            .forEach { book -> result.add(book) }
-                }
-                BookAttr.PUB_YEAR.toString() -> {
-                    getAllBook()
-                            .filter { book -> book.pubYear == filter.value.toInt() }
-                            .forEach { book -> result.add(book) }
-                }
-                else -> getAllBook()
+    fun getBookByFilter(filter: Filter): List<Book> {
+        when (filter.attribute) {
+            "title" -> {
+                if (filter.value.equals("")) return getAllBook().filter { (title) -> title.contains(filter.value) }
+                else return getAllBook().toList()
             }
+            "price" -> return getAllBook().filter { book -> book.price.toString().contains(filter.value) }
+            "pubYear" -> return getAllBook().filter { book -> book.pubYear.toString().contains(filter.value) }
+            else -> return getAllBook().toList()
         }
-        return result
     }
 
     fun sortBy(attr: BookAttr) {

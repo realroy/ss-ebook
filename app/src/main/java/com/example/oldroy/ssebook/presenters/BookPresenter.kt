@@ -17,17 +17,15 @@ class BookPresenter : BookContact.BookPresenter, Observer {
         repo.addObserver(this)
     }
 
-
-
     override fun getInformation(): MutableCollection<Book> {
         return repo.getAllBook()
     }
 
     override fun update(o: Observable?, information: Any?) {
-        this.view.updateInformation()
+        view.updateInformation()
     }
 
-
-    override fun getInformation(filter: Filter) {
+    override fun getInformation(filter: Filter): List<Book> {
+        return repo.getBookByFilter(filter)
     }
 }

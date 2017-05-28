@@ -10,6 +10,6 @@ class BookContact {
 
     interface BookPresenter {
         fun getInformation(): MutableCollection<Book>
-        fun getInformation(filter: Filter)
+        fun getInformation(filter: Filter): List<Book>
     }
 }
