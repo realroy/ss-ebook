@@ -1,9 +1,11 @@
 package com.example.oldroy.ssebook.models
 
+import java.io.Serializable
+
 data class Book(
-        var title: String = "",
-        var id: Int = 0,
-        var price: Double = 0.0,
-        var pubYear: Int = 0,
-        var img_url: String = ""
-)
+        val title: String = "",
+        val id: Int = 0,
+        val price: Double = 0.0,
+        val pubYear: Int = 0,
+        val img_url: String = ""
+) : Serializable
